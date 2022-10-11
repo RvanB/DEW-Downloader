@@ -50,6 +50,9 @@ def read_image(url):
         print(str(err.code) + " : " + str(err.reason))
         if err.code == 429:
             time.sleep(5)
+    except Exception as e:
+        print("Some other error occurred")
+
     return None
 
 
@@ -149,6 +152,7 @@ def main():
     # write missed files
     with open(os.path.join(output_path, 'missing_images.csv'), 'w') as missed_file:
         spamwriter = csv.writer(missed_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+        spamwriter.writerow("img_id", "url")
         for entry in missed_images:
             spamwriter.writerow(entry)
 
